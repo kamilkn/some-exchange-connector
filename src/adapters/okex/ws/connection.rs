@@ -50,8 +50,7 @@ impl OkexWsConnection {
         interval.tick().await;
         loop {
             interval.tick().await;
-            let res = tx.send(()).await;
-            if res.is_err() {
+            if let Err(_e) = tx.send(()).await {
                 error!("Failed to send Ping to Okex channel");
             }
         }
@@ -71,7 +70,7 @@ impl MdConnection for OkexWsConnection {
                             if combined.message.len() != 1 {
                                 return Err(eyre!("Failed to deserialize: The incoming message length does not equal 1. {combined:?}"));
                             }
-                            match combined.message.get(0) {
+                            match combined.message.first() {
                                 Some(OkexWsDataMessage::BookSnapshot(snapshot)) => {
                                     let instrument_id = combined.arg.inst_id.clone();
                                     if let Some(prev_seq_id) = snapshot.prev_seq_id {

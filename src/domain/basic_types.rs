@@ -12,10 +12,10 @@ pub type Price = FixedPoint<i128, U16>;
 #[derive(Copy, Clone, Debug, Serialize, Deserialize, Eq, PartialEq, Hash)]
 pub struct InstrumentId(u64);
 
-impl Into<InstrumentId> for u64 {
-    fn into(self) -> InstrumentId {
-        InstrumentId(self)
-    }
+impl From<u64> for InstrumentId {
+  fn from(val: u64) -> Self {
+    InstrumentId(val)
+  }
 }
 
 pub fn deserialize_u64<'de, D>(deserializer: D) -> Result<u64, D::Error>

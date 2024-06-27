@@ -66,3 +66,9 @@ impl Display for OrderBook {
         )
     }
 }
+
+impl Default for OrderBook {
+  fn default() -> Self {
+      Self::new()
+  }
+}

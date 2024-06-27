@@ -59,3 +59,9 @@ impl Storage {
         }
     }
 }
+
+impl Default for Storage {
+    fn default() -> Self {
+        Self::new()
+    }
+}
